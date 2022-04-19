@@ -22,3 +22,24 @@
   text-align: center;
   justify-content: center;
 }
+
+/* aesthetics */
+
+#title {
+  text-align: center;
+}
+
+.status {
+  display: inline;
+}
+
+#reset {
+  position: relative;
+  left: 20px;
+  height: 40px;
+  width: 100px;
+  font-size: 25px;
+  margin: 20px;
+  background-color: #4492CD;
+  color: white;
+}

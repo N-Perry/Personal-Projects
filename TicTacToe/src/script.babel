@@ -14,8 +14,10 @@ class GameBoard extends React.Component {
     }
     
     this.whoAndWhere = this.whoAndWhere.bind(this);
+    this.whoIsNext = this.whoIsNext.bind(this);
     this.roundHandler = this.roundHandler.bind(this);
     this.victoryChecker = this.victoryChecker.bind(this);
+    this.reset = this.reset.bind(this);
   }
   
   /* function that gets player & id of claimed sector (every buttonpress) and adds sector number to designated arrays in state (representing the sectors players have claimed) */
@@ -33,9 +35,22 @@ class GameBoard extends React.Component {
             this.victoryChecker();
       });
     }
-    this.roundHandler();
     
-    
+    this.roundHandler();  
+  }
+  
+  
+  /* function to determine who goes next based on who just went*/
+  whoIsNext(currentPlayer) {
+    if (currentPlayer == 'X') {
+      this.setState({
+        nextPlayer: 'O'
+      });
+    } else if (currentPlayer == 'O') {
+      this.setState({
+        nextPlayer: 'X'
+      });
+    }
   }
   
   /*increments this.state.roundMoves, roundMoves=2 means both players have played for the turn. */
@@ -90,6 +105,18 @@ class GameBoard extends React.Component {
     }
   }
   
+  /* called when a player wins, resets game board*/
+  reset() {
+    this.setState({
+      round: 0,
+      roundMoves: 0,
+      nextPlayer: '',
+      ownedX: [],
+      ownedO: [],
+      winner: '',   
+    })
+  }
+  
   render() {
     let gameBoard = []
     for (let i = 0; i < 9; i++) {
@@ -97,19 +124,31 @@ class GameBoard extends React.Component {
         <GridSector
           id={i+1}
           whoAndWhere={this.whoAndWhere}
+          whoIsNext={this.whoIsNext}
+          nextPlayer={this.state.nextPlayer}
+          ownedX={this.state.ownedX}
+          ownedO={this.state.ownedO}
          />
       );
     }
     
     return (
-      <div id="test-div">
-      <div className='grid-container'>
-       {gameBoard}
-      </div> 
-        {this.state.winner ? <h1>Player {this.state.winner} wins!</h1>
-         : <h1>Play on!</h1>   
-        }
-      </div>
+      <div id="wrapper">
+        <h1 id="title"> Tic-Tac-Toe </h1>
+        <div className='grid-container'>
+         {gameBoard}
+        </div> 
+        
+          {/*ternary operation determines what message displays below game box*/}
+          {
+          this.state.ownedX.length + this.state.ownedO.length == 9 ? <h1 class='status'>Cat's game!</h1>
+          :  this.state.winner ? <h1 class='status'>Player {this.state.winner} wins!</h1> 
+             : !this.state.nextPlayer ? <h1 class='status'>Who will go first?</h1>
+                 :  <h1 class='status'>Player {this.state.nextPlayer}'s turn.</h1>
+          }
+        
+        <button id='reset' onClick={this.reset}>Reset</button>
+      </div>   
     );
   }
 }
@@ -117,28 +156,32 @@ class GameBoard extends React.Component {
 class GridSector extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    claimedBy: ''
-    }
     
     this.claimSector = this.claimSector.bind(this);
   }
   
   claimSector(event) {
-    this.setState({
-      claimedBy: event.target.value
-    });
-    this.props.whoAndWhere(event.target.value, this.props.id);
+    if (this.props.nextPlayer && event.target.value != this.props.nextPlayer) {
+      alert("It's not your turn, silly!");
+    } else {
+      this.props.whoAndWhere(event.target.value, this.props.id);
+      this.props.whoIsNext(event.target.value);
+    }
   }
 
   render() {
-    if (this.state.claimedBy) {
+    if (this.props.ownedX.includes(this.props.id)) {
       return ( 
         <div className="grid-item">
-          {this.state.claimedBy}
-          {this.props.id}
+          X
         </div>
-      )
+      );
+    } else if (this.props.ownedO.includes(this.props.id)) {
+      return (
+        <div className="grid-item">
+          O
+        </div>
+      );
     } else {
       return (
         <div className="grid-item">

@@ -14,8 +14,10 @@ class GameBoard extends React.Component {
 
 
     this.whoAndWhere = this.whoAndWhere.bind(this);
+    this.whoIsNext = this.whoIsNext.bind(this);
     this.roundHandler = this.roundHandler.bind(this);
     this.victoryChecker = this.victoryChecker.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   /* function that gets player & id of claimed sector (every buttonpress) and adds sector number to designated arrays in state (representing the sectors players have claimed) */
@@ -33,9 +35,22 @@ class GameBoard extends React.Component {
         this.victoryChecker();
       });
     }
+
     this.roundHandler();
+  }
 
 
+  /* function to determine who goes next based on who just went*/
+  whoIsNext(currentPlayer) {
+    if (currentPlayer == 'X') {
+      this.setState({
+        nextPlayer: 'O' });
+
+    } else if (currentPlayer == 'O') {
+      this.setState({
+        nextPlayer: 'X' });
+
+    }
   }
 
   /*increments this.state.roundMoves, roundMoves=2 means both players have played for the turn. */
@@ -90,25 +105,49 @@ class GameBoard extends React.Component {
     }
   }
 
+  /* called when a player wins, resets game board*/
+  reset() {
+    this.setState({
+      round: 0,
+      roundMoves: 0,
+      nextPlayer: '',
+      ownedX: [],
+      ownedO: [],
+      winner: '' });
+
+  }
+
   render() {
     let gameBoard = [];
     for (let i = 0; i < 9; i++) {
       gameBoard.push( /*#__PURE__*/
       React.createElement(GridSector, {
         id: i + 1,
-        whoAndWhere: this.whoAndWhere }));
+        whoAndWhere: this.whoAndWhere,
+        whoIsNext: this.whoIsNext,
+        nextPlayer: this.state.nextPlayer,
+        ownedX: this.state.ownedX,
+        ownedO: this.state.ownedO }));
 
 
     }
 
     return /*#__PURE__*/(
-      React.createElement("div", { id: "test-div" }, /*#__PURE__*/
+      React.createElement("div", { id: "wrapper" }, /*#__PURE__*/
+      React.createElement("h1", { id: "title" }, " Tic-Tac-Toe "), /*#__PURE__*/
       React.createElement("div", { className: "grid-container" },
       gameBoard),
 
-      this.state.winner ? /*#__PURE__*/React.createElement("h1", null, "Player ", this.state.winner, " wins!") : /*#__PURE__*/
-      React.createElement("h1", null, "Play on!")));
 
+
+
+      this.state.ownedX.length + this.state.ownedO.length == 9 ? /*#__PURE__*/React.createElement("h1", { class: "status" }, "Cat's game!") :
+      this.state.winner ? /*#__PURE__*/React.createElement("h1", { class: "status" }, "Player ", this.state.winner, " wins!") :
+      !this.state.nextPlayer ? /*#__PURE__*/React.createElement("h1", { class: "status" }, "Who will go first?") : /*#__PURE__*/
+      React.createElement("h1", { class: "status" }, "Player ", this.state.nextPlayer, "'s turn."), /*#__PURE__*/
+
+
+      React.createElement("button", { id: "reset", onClick: this.reset }, "Reset")));
 
 
   }}
@@ -117,26 +156,30 @@ class GameBoard extends React.Component {
 class GridSector extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      claimedBy: '' };
-
 
     this.claimSector = this.claimSector.bind(this);
   }
 
   claimSector(event) {
-    this.setState({
-      claimedBy: event.target.value });
-
-    this.props.whoAndWhere(event.target.value, this.props.id);
+    if (this.props.nextPlayer && event.target.value != this.props.nextPlayer) {
+      alert("It's not your turn, silly!");
+    } else {
+      this.props.whoAndWhere(event.target.value, this.props.id);
+      this.props.whoIsNext(event.target.value);
+    }
   }
 
   render() {
-    if (this.state.claimedBy) {
+    if (this.props.ownedX.includes(this.props.id)) {
       return /*#__PURE__*/(
-        React.createElement("div", { className: "grid-item" },
-        this.state.claimedBy,
-        this.props.id));
+        React.createElement("div", { className: "grid-item" }, "X"));
+
+
+
+    } else if (this.props.ownedO.includes(this.props.id)) {
+      return /*#__PURE__*/(
+        React.createElement("div", { className: "grid-item" }, "O"));
+
 
 
     } else {
