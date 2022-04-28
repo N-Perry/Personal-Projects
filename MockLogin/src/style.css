@@ -1,0 +1,39 @@
+#app {
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+#main-box {
+  border: 1px solid black;
+  height: 300px;
+  width: 300px;
+  background:#916E6E;
+  color: white;
+}
+
+#starter-buttons {
+  position: relative;
+  top: 150px;
+  left: 80px;
+}
+
+.input-fields {
+  position: relative;
+  top: 100px;
+}
+
+#backOrForward {
+  text-align: center;
+  position: relative;
+  top: 150px;
+}
+
+#back-button {
+  background: #E4C86F;
+}
+
+.forward {
+  background: #32CD51;
+}

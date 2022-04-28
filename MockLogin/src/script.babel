@@ -1,0 +1,150 @@
+const fakeDB = [
+  {
+    username: 'Nick',
+    password: 'hooper24'
+  },
+  {
+    username: 'Andy',
+    password: 'baseballfan97'
+  }
+];
+
+class LoginOrSignup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: 'SigningUp',
+      usernameInput: '',
+      passwordInput: '',
+      pwConfirmInput: ''
+    }
+    
+    this.handleChooseLogin = this.handleChooseLogin.bind(this);
+    this.handleChooseSignup = this.handleChooseSignup.bind(this);
+    this.reset = this.reset.bind(this);
+    
+    this.handleInputChange = this.handleInputChange.bind(this);
+  } 
+  
+  handleChooseLogin() {
+    this.setState({
+      status: 'LoggingIn'
+    });
+  } 
+  
+  handleChooseSignup() {
+    this.setState({
+      status: 'SigningUp'
+    });
+  }
+  
+  handleInputChange(e) {
+    if (e.target.name == 'usernameInput') {
+      this.setState({
+        usernameInput: e.target.value
+      });
+    } else if (e.target.name == 'passwordInput') {
+      this.setState({
+        passwordInput: e.target.value
+      });
+    } else {
+      this.setState({
+        pwConfirmInput: e.target.value
+      });
+    }
+  }
+  
+  reset() {
+    this.setState({
+      status: '',
+      usernameInput: '',
+      passwordInput: '',
+      pwConfirmInput: ''
+    })
+  }
+  
+  render() {
+    const currentStatus = this.state.status;
+    
+    if (currentStatus == '') {
+      return (
+        <div id='main-box'>
+          <div id='starter-buttons'>
+            <button onClick={this.handleChooseLogin}>Login</button>
+            &nbsp; or &nbsp;
+            <button onClick={this.handleChooseSignup}>Sign Up</button>
+          </div>
+        </div>
+      );
+    } else if (currentStatus == 'LoggingIn') {
+      return (
+        <div id='main-box'>
+          <LoginView
+            goHome={this.reset}
+            handleInputChange={this.handleInputChange}
+            usernameInput={this.state.usernameInput}
+            passwordInput={this.state.passwordInput}
+          />
+        </div>
+      );
+    } else if (currentStatus == 'SigningUp') {
+      return (
+        <div id='main-box'>
+          <SignupView
+            goHome={this.reset}
+            handleInputChange={this.handleInputChange}
+            usernameInput={this.state.usernameInput}
+            passwordInput={this.state.passwordInput}
+            pwConfirmInput={this.state.pwConfirmInput}
+          />
+        </div>
+      );
+    }
+  }
+}
+
+// component rendered when selects "Login"
+function LoginView(props) {
+  
+    return(
+      <div>
+        <div class='input-fields'>
+          Username:
+          <input name='usernameInput' value={props.usernameInput} onChange={props.handleInputChange}/> <br />
+          Password:
+          <input name='passwordInput' value={props.usernameInput} type="password"  onChange={props.handleInputChange}/>
+        </div>
+        <div id="backOrForward">
+          <button id='back-button' onClick={props.goHome}>Back</button>
+          <button class="forward">Login</button>
+        </div> 
+      </div>
+    ); 
+}
+
+// component rendered when user selects 'Sign Up'
+function SignupView(props) {
+  
+    return(
+      <div>
+        <div class='input-fields'>
+          Username:
+          <input name='usernameInput' value={props.usernameInput} onChange={props.handleInputChange}/> <br />
+          Password:
+          <input name='passwordInput' value={props.passwordInput} type="password" onChange={props.handleInputChange}/> <br />
+          Confirm Password:
+          <input name='pwConfirmInput' value={props.pwConfirmInput} type="password" onChange={props.handleInputChange}/>
+        </div>
+        <div id="backOrForward">
+          <button id='back-button' onClick={props.goHome}>Back</button>
+          <button class="forward">Sign Up</button>
+        </div>
+      </div>
+    );
+}
+
+
+
+
+
+ReactDOM.render(<LoginOrSignup />, document.getElementById('app'))
