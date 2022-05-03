@@ -7,6 +7,9 @@
 }
 
 #main-box {
+ display: flex;
+ justify-content: center;
+ align-items: center;
  border: 1px solid black;
  height: 300px;
  width: 300px;
@@ -14,21 +17,9 @@
  color: white;
 }
 
-#starter-buttons {
- position: relative;
- top: 150px;
- left: 80px;
-}
-
-.input-fields {
- position: relative;
- top: 100px;
-}
-
 #backOrForward {
- text-align: center;
  position: relative;
- top: 150px;
+ top: 5px;
 }
 
 #back-button {
@@ -105,9 +96,6 @@ code for fake loading-wheel i found on the internet
 
 .lds-ring {
  display: inline-block;
- position: relative;
- top: 100px;
- left: 100px;
  width: 80px;
  height: 80px;
 }
