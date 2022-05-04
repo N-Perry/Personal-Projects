@@ -1,0 +1,80 @@
+const fakeUserDB = { // user info can be accessed via username (this probably isn't best practice lol)
+  'Andy': {
+    username: 'JRodEnthusiast97',
+    posts: [
+      {
+        postID: 1,
+        postText: "Man oh man i just really love the Houston Astros!"
+      }, {
+        postID: 2,
+        postText: "Does anyone else think that Nick is just the greatest man alive?"
+      }, {
+        postID: 3,
+        postText: "My cat Jo is just a snugglybugglyumpkins :3 #meow"
+      }
+    ]
+  },
+  'Nick': {
+    username: 'slickNicky98',
+    posts: [
+      {
+        postID: 1,
+        postText: "Get buckets or die trying #differentanimal #samebeast"
+      }, {
+        postID: 2,
+        postText: "Can Life cereal sponsor me? i eat so much of that stuff"
+      }, {
+        postID: 3,
+        postText: "Y'all hear the Titanic sunk? Damn"
+      }
+    ]
+  }
+};
+
+// for now, displays all user posts from fakeDB
+class HomePage extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  render() {
+    let users = [];
+    for (const user in fakeUserDB) {
+      users.push(fakeUserDB[user]);
+    }
+
+    users = users.map((user) => {
+      return (
+        <PostsList user={user}/>
+      );
+    });
+    
+    return (
+      <div id="home-page">
+        {users}
+      </div>
+    );
+  }
+}
+
+// outputs list of Post components
+const PostsList = (props) => {
+  const posts = props.user.posts.map(post => {
+    return <Post post={post} />
+  });
+  
+  return (
+    <>{props.user.username}: {posts}</>
+  );
+}
+
+// displays user post, ideally alongside username, profile pic, etc. in the future
+const Post = (props) => {
+
+  return (
+    <h3>{props.post.postText}</h3>
+  );
+}
+
+
+ReactDOM.render(<HomePage />, document.getElementById('app'));
