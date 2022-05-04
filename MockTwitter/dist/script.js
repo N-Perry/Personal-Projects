@@ -1,3 +1,5 @@
+import { useState } from "https://cdn.skypack.dev/react@17.0.1"; // i want practice using hooks! :)
+
 const fakeUserDB = { // user info can be accessed via username (this probably isn't best practice lol)
   'Andy': {
     username: 'JRodEnthusiast97',
@@ -64,7 +66,10 @@ const PostsList = props => {
   });
 
   return /*#__PURE__*/(
-    React.createElement(React.Fragment, null, props.user.username, ": ", posts));
+    React.createElement(React.Fragment, null, /*#__PURE__*/
+    React.createElement("strong", null, "@", props.user.username), ":", /*#__PURE__*/
+    React.createElement("div", { className: "posts-list" }, posts)));
+
 
 };
 
@@ -72,7 +77,16 @@ const PostsList = props => {
 const Post = props => {
 
   return /*#__PURE__*/(
-    React.createElement("h3", null, props.post.postText));
+    React.createElement("div", { className: "post" }, /*#__PURE__*/
+    React.createElement("div", { className: "profile-pic" }, "PP"), /*#__PURE__*/
+    React.createElement("h4", { className: "post-text" }, props.post.postText), /*#__PURE__*/
+    React.createElement("hr", null), /*#__PURE__*/
+    React.createElement("div", { className: "post-footer" }, /*#__PURE__*/
+    React.createElement("button", { className: "btn" }, /*#__PURE__*/React.createElement("i", { className: "fa-solid fa-comment" })), /*#__PURE__*/
+    React.createElement("button", { className: "btn" }, /*#__PURE__*/React.createElement("i", { className: "fa-solid fa-retweet" })), /*#__PURE__*/
+    React.createElement("button", { className: "btn" }, /*#__PURE__*/React.createElement("i", { className: "fa-solid fa-heart" })))));
+
+
 
 };
 

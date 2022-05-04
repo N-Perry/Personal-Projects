@@ -1,0 +1,31 @@
+#app {
+  display: flex;
+  justify-content: center;
+}
+
+.posts-list {
+  border: solid #509A4B 3px;
+  background: #A3BFA1;
+  margin: 0px 0px 10px 0px;
+}
+
+.post {
+  padding: 5px;
+  margin: 20px;
+  background: #C6BEBE;
+  box-shadow: -3px -3px	2px #EE7E1D;
+}
+
+.post-footer {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.post-text {
+  margin-bottom: 20px;
+}
+
+hr {
+  margin: 0px;
+}
+

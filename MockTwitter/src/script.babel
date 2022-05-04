@@ -1,3 +1,5 @@
+import { useState } from "https://cdn.skypack.dev/react@17.0.1"; // i want practice using hooks! :)
+
 const fakeUserDB = { // user info can be accessed via username (this probably isn't best practice lol)
   'Andy': {
     username: 'JRodEnthusiast97',
@@ -64,7 +66,10 @@ const PostsList = (props) => {
   });
   
   return (
-    <>{props.user.username}: {posts}</>
+    <>
+      <strong>@{props.user.username}</strong>: 
+      <div className='posts-list'>{posts}</div>    
+    </>
   );
 }
 
@@ -72,7 +77,16 @@ const PostsList = (props) => {
 const Post = (props) => {
 
   return (
-    <h3>{props.post.postText}</h3>
+    <div className="post">
+      <div className='profile-pic'>PP</div>
+      <h4 className='post-text'>{props.post.postText}</h4>
+      <hr />
+      <div className='post-footer'>
+        <button className="btn"><i className="fa-solid fa-comment"></i></button>
+        <button className="btn"><i className="fa-solid fa-retweet"></i></button>
+        <button className="btn"><i className='fa-solid fa-heart'></i></button>
+      </div>
+    </div>
   );
 }
 

@@ -161,7 +161,7 @@ class LoginOrSignup extends React.Component {
     } else if (currentStatus == 'RequestingFromServer') {
       return (
         <div id='main-box'>
-          <div class="lds-ring">
+          <div className="lds-ring">
             <div></div>
             <div></div>
             <div></div>
@@ -186,7 +186,7 @@ const LoginView = (props) => {
   
     return(
       <div>
-        <div class='input-fields'>
+        <div className='input-fields'>
           Username:
           <input name='usernameInput' value={props.usernameInput} onChange={props.handleInputChange}/> <br />
           Password:
@@ -194,7 +194,7 @@ const LoginView = (props) => {
         </div>
         <div id="backOrForward">
           <button id='back-button' onClick={props.goHome}>Back</button>
-          <button class="forward" onClick={props.handleLogin}>Login</button>
+          <button className="forward" onClick={props.handleLogin}>Login</button>
         </div> 
       </div>
     ); 
@@ -205,7 +205,7 @@ const SignupView = (props) => {
   
     return(
       <div>
-        <div class='input-fields'>
+        <div className='input-fields'>
           Username:
           <input name='usernameInput' value={props.usernameInput} onChange={props.handleInputChange}/> <br />
           Password:
@@ -215,7 +215,7 @@ const SignupView = (props) => {
         </div>
         <div id="backOrForward">
           <button id='back-button' onClick={props.goHome}>Back</button>
-          <button class="forward" onClick={props.handleSignup}>Sign Up</button>
+          <button className="forward" onClick={props.handleSignup}>Sign Up</button>
         </div>
       </div>
     );
