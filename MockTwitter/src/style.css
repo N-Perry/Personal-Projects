@@ -13,6 +13,7 @@
   padding: 5px;
   margin: 20px;
   background: #C6BEBE;
+  border-radius: 10px;
   box-shadow: -3px -3px	2px #EE7E1D;
 }
 
@@ -21,8 +22,36 @@
   justify-content: flex-start;
 }
 
+.post-footer button {
+  border-radius: 50px;
+}
+
+.post-footer button:hover {
+  color: green !important;
+}
+
+.post-footer button:focus {
+  box-shadow: none !important;
+  color: green;
+}
+
 .post-text {
+  color: green;
   margin-bottom: 20px;
+}
+
+.commenting {
+  display: flex;
+}
+
+.submit-comment {
+  align-self: flex-end;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.comment::before {
+  content: "comment: ";
 }
 
 hr {

@@ -24,10 +24,10 @@ const fakeUserDB = { // user info can be accessed via username (this probably is
         postText: "Get buckets or die trying #differentanimal #samebeast"
       }, {
         postID: 2,
-        postText: "Can Life cereal sponsor me? i eat so much of that stuff"
+        postText: "Should i do standup? honest replies only"
       }, {
         postID: 3,
-        postText: "Y'all hear the Titanic sunk? Damn"
+        postText: "Never forget the Alamo."
       }
     ]
   }
@@ -75,17 +75,71 @@ const PostsList = (props) => {
 
 // displays user post, ideally alongside username, profile pic, etc. in the future
 const Post = (props) => {
-
+  const [likesCount, setLikesCount] = React.useState(0);
+  const [commenting, setCommenting] = React.useState(false);
+  const [commentList, setCommentList] = React.useState([]);
+  
+  const handleLike = () => {
+    setLikesCount(likesCount + 1);
+  }
+  
+  const handleComment = () => {
+    if (commenting) {
+      setCommenting(false);
+    } else {
+      setCommenting(true);
+    }
+  }
+  
+  const handleSubmitComment = (comment) => {
+    if (comment) {
+      setCommentList([...commentList, comment]);
+      setCommenting(false);
+    }
+  };
+  
+  const handleRetweet = () => {
+    if(commenting) {
+      setCommenting(false);
+    }
+    alert("imagine actually implementing retweet functionality LOL couldn't be me");
+  }
+  
+  const comments = commentList.map(comment => {
+    return (
+      <div className="comment">{comment}</div>
+    );
+  })
+  
   return (
     <div className="post">
       <div className='profile-pic'>PP</div>
       <h4 className='post-text'>{props.post.postText}</h4>
+      {comments}
       <hr />
+      {commenting && <CommentForm handleSubmit={handleSubmitComment} />} 
       <div className='post-footer'>
-        <button className="btn"><i className="fa-solid fa-comment"></i></button>
-        <button className="btn"><i className="fa-solid fa-retweet"></i></button>
-        <button className="btn"><i className='fa-solid fa-heart'></i></button>
+        <button className="btn" name='comment' onClick={handleComment}><i className="fa-solid fa-comment"></i></button>
+        <button className="btn" name='retweet' onClick={handleRetweet}><i className="fa-solid fa-retweet"></i></button>
+        <span><button className="btn" name="like" onClick={handleLike}><i className='fa-solid fa-heart'></i></button>{likesCount}</span>
       </div>
+    </div>
+  );
+}
+
+// component for textbox & submit button that appears when 'commenting' state is true
+const CommentForm = (props) => {
+  const [comment, setComment] = React.useState('')
+  
+  const handleChange = (e) => {
+    setComment(e.target.value);
+  }
+  
+  return (
+    <div className='commenting'>
+      <textarea name="commentBox" onChange={handleChange} value={comment} rows="4" cols="50">
+      </textarea>
+      <button className='submit-comment btn btn-primary' onClick={() => props.handleSubmit(comment)}>submit</button>
     </div>
   );
 }

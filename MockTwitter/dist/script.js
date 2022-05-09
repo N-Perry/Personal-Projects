@@ -24,10 +24,10 @@ const fakeUserDB = { // user info can be accessed via username (this probably is
       postText: "Get buckets or die trying #differentanimal #samebeast" },
     {
       postID: 2,
-      postText: "Can Life cereal sponsor me? i eat so much of that stuff" },
+      postText: "Should i do standup? honest replies only" },
     {
       postID: 3,
-      postText: "Y'all hear the Titanic sunk? Damn" }] } };
+      postText: "Never forget the Alamo." }] } };
 
 
 
@@ -75,17 +75,71 @@ const PostsList = props => {
 
 // displays user post, ideally alongside username, profile pic, etc. in the future
 const Post = props => {
+  const [likesCount, setLikesCount] = React.useState(0);
+  const [commenting, setCommenting] = React.useState(false);
+  const [commentList, setCommentList] = React.useState([]);
+
+  const handleLike = () => {
+    setLikesCount(likesCount + 1);
+  };
+
+  const handleComment = () => {
+    if (commenting) {
+      setCommenting(false);
+    } else {
+      setCommenting(true);
+    }
+  };
+
+  const handleSubmitComment = comment => {
+    if (comment) {
+      setCommentList([...commentList, comment]);
+      setCommenting(false);
+    }
+  };
+
+  const handleRetweet = () => {
+    if (commenting) {
+      setCommenting(false);
+    }
+    alert("imagine actually implementing retweet functionality LOL couldn't be me");
+  };
+
+  const comments = commentList.map(comment => {
+    return /*#__PURE__*/(
+      React.createElement("div", { className: "comment" }, comment));
+
+  });
 
   return /*#__PURE__*/(
     React.createElement("div", { className: "post" }, /*#__PURE__*/
     React.createElement("div", { className: "profile-pic" }, "PP"), /*#__PURE__*/
-    React.createElement("h4", { className: "post-text" }, props.post.postText), /*#__PURE__*/
-    React.createElement("hr", null), /*#__PURE__*/
+    React.createElement("h4", { className: "post-text" }, props.post.postText),
+    comments, /*#__PURE__*/
+    React.createElement("hr", null),
+    commenting && /*#__PURE__*/React.createElement(CommentForm, { handleSubmit: handleSubmitComment }), /*#__PURE__*/
     React.createElement("div", { className: "post-footer" }, /*#__PURE__*/
-    React.createElement("button", { className: "btn" }, /*#__PURE__*/React.createElement("i", { className: "fa-solid fa-comment" })), /*#__PURE__*/
-    React.createElement("button", { className: "btn" }, /*#__PURE__*/React.createElement("i", { className: "fa-solid fa-retweet" })), /*#__PURE__*/
-    React.createElement("button", { className: "btn" }, /*#__PURE__*/React.createElement("i", { className: "fa-solid fa-heart" })))));
+    React.createElement("button", { className: "btn", name: "comment", onClick: handleComment }, /*#__PURE__*/React.createElement("i", { className: "fa-solid fa-comment" })), /*#__PURE__*/
+    React.createElement("button", { className: "btn", name: "retweet", onClick: handleRetweet }, /*#__PURE__*/React.createElement("i", { className: "fa-solid fa-retweet" })), /*#__PURE__*/
+    React.createElement("span", null, /*#__PURE__*/React.createElement("button", { className: "btn", name: "like", onClick: handleLike }, /*#__PURE__*/React.createElement("i", { className: "fa-solid fa-heart" })), likesCount))));
 
+
+
+};
+
+// component for textbox & submit button that appears when 'commenting' state is true
+const CommentForm = props => {
+  const [comment, setComment] = React.useState('');
+
+  const handleChange = e => {
+    setComment(e.target.value);
+  };
+
+  return /*#__PURE__*/(
+    React.createElement("div", { className: "commenting" }, /*#__PURE__*/
+    React.createElement("textarea", { name: "commentBox", onChange: handleChange, value: comment, rows: "4", cols: "50" }), /*#__PURE__*/
+
+    React.createElement("button", { className: "submit-comment btn btn-primary", onClick: () => props.handleSubmit(comment) }, "submit")));
 
 
 };
