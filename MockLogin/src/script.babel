@@ -84,7 +84,12 @@ class LoginOrSignup extends React.Component {
         username,
         password
       }
-      this.reset();
+      this.setState({
+        status: 'LoggingIn',
+        usernameInput: '',
+        passwordInput: '',
+        pwConfirmInput: ''
+      });
     }
   }
   
@@ -161,7 +166,7 @@ class LoginOrSignup extends React.Component {
     } else if (currentStatus == 'RequestingFromServer') {
       return (
         <div id='main-box'>
-          <div class="lds-ring">
+          <div className="lds-ring">
             <div></div>
             <div></div>
             <div></div>
@@ -182,11 +187,11 @@ class LoginOrSignup extends React.Component {
 }
 
 // component rendered when selects "Login"
-function LoginView(props) {
+const LoginView = (props) => {
   
     return(
       <div>
-        <div class='input-fields'>
+        <div className='input-fields'>
           Username:
           <input name='usernameInput' value={props.usernameInput} onChange={props.handleInputChange}/> <br />
           Password:
@@ -194,18 +199,18 @@ function LoginView(props) {
         </div>
         <div id="backOrForward">
           <button id='back-button' onClick={props.goHome}>Back</button>
-          <button class="forward" onClick={props.handleLogin}>Login</button>
+          <button className="forward" onClick={props.handleLogin}>Login</button>
         </div> 
       </div>
     ); 
 }
 
 // component rendered when user selects 'Sign Up'
-function SignupView(props) {
+const SignupView = (props) => {
   
     return(
       <div>
-        <div class='input-fields'>
+        <div className='input-fields'>
           Username:
           <input name='usernameInput' value={props.usernameInput} onChange={props.handleInputChange}/> <br />
           Password:
@@ -215,14 +220,10 @@ function SignupView(props) {
         </div>
         <div id="backOrForward">
           <button id='back-button' onClick={props.goHome}>Back</button>
-          <button class="forward" onClick={props.handleSignup}>Sign Up</button>
+          <button className="forward" onClick={props.handleSignup}>Sign Up</button>
         </div>
       </div>
     );
 }
-
-
-
-
 
 ReactDOM.render(<LoginOrSignup />, document.getElementById('app'))

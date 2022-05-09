@@ -1,131 +1,131 @@
 #app {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: beige;
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: beige;
 }
 
 #main-box {
- display: flex;
- justify-content: center;
- align-items: center;
- border: 1px solid black;
- height: 300px;
- width: 300px;
- background: linear-gradient(35deg, #B76666, #FFCCCC);
- color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  height: 300px;
+  width: 300px;
+  background: linear-gradient(35deg, #B76666, #FFCCCC);
+  color: white;
 }
 
 #backOrForward {
- position: relative;
- top: 5px;
+  position: relative;
+  top: 5px;
 }
 
 #back-button {
- background: #D83B3B;
+  background: #D83B3B;
 }
 
 .forward {
- background: #D553AA;
+  background: #D553AA;
 }
 
 .forward:hover {
- box-shadow: 1px 1px 5px #B9388E; 
+  box-shadow: 1px 1px 5px #B9388E; 
 }
 
 /* animation stuff i found online for home screen meme*/
 
 @-webkit-keyframes color_change {
- 0% { background: red; }
- 33% { background: #CD00FF; }
- 66% { background: #00A2FF; }
- 100% { background: #FFBC00; }
+	0% { background: red; }
+	33% { background: #CD00FF; }
+  66% { background: #00A2FF; }
+  100% { background: #FFBC00; }
 }
 @-moz-keyframes color_change {
- 0% { background: red; }
- 33% { background: #CD00FF; }
- 66% { background: #00A2FF; }
- 100% { background: #FFBC00; }
+	0% { background: red; }
+	33% { background: #CD00FF; }
+  66% { background: #00A2FF; }
+  100% { background: #FFBC00; }
 }
 @-ms-keyframes color_change {
- 0% { background: red; }
- 33% { background: #CD00FF; }
- 66% { background: #00A2FF; }
- 100% { background: #FFBC00; }
+	0% { background: red; }
+	33% { background: #CD00FF; }
+  66% { background: #00A2FF; }
+  100% { background: #FFBC00; }
 }
 @-o-keyframes color_change {
- 0% { background: red; }
- 33% { background: #CD00FF; }
- 66% { background: #00A2FF; }
- 100% { background: #FFBC00; }
+	0% { background: red; }
+	33% { background: #CD00FF; }
+  66% { background: #00A2FF; }
+  100% { background: #FFBC00; }
 }
 @keyframes color_change {
- 0% { background: red; }
- 33% { background: #CD00FF; }
- 66% { background: #00A2FF; }
- 100% { background: #FFBC00; }
+	0% { background: red; }
+	33% { background: #CD00FF; }
+  66% { background: #00A2FF; }
+  100% { background: #FFBC00; }
 }
 
 #user-home {
- -webkit-animation: color_change 3s infinite alternate;
- -moz-animation: color_change 3s infinite alternate;
- -ms-animation: color_change 3s infinite alternate;
- -o-animation: color_change 3s infinite alternate;
- animation: color_change 3s infinite alternate;
- display: flex;
- align-items: center;
- justify-content: center;
- color: white;
- height: 100vh;
- width: 100vw;
+  -webkit-animation: color_change 3s infinite alternate;
+	-moz-animation: color_change 3s infinite alternate;
+	-ms-animation: color_change 3s infinite alternate;
+	-o-animation: color_change 3s infinite alternate;
+	animation: color_change 3s infinite alternate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  height: 100vh;
+  width: 100vw;
 }
 /****/
 
 #Logout {
- position: relative;
- right: 50px;
- background-color: black;
- color: white;
+  position: relative;
+  right: 50px;
+  background-color: black;
+  color: white;
 }
 
 /* 
 code for fake loading-wheel i found on the internet
- (represents fetching data from server) 
+  (represents fetching data from server) 
 */
 
 .lds-ring {
- display: inline-block;
- width: 80px;
- height: 80px;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
 }
 
 .lds-ring div {
- box-sizing: border-box;
- display: block;
- position: absolute;
- width: 64px;
- height: 64px;
- margin: 8px;
- border: 8px solid #fff;
- border-radius: 50%;
- animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
- border-color: #fff transparent transparent transparent;
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
 }
 .lds-ring div:nth-child(1) {
- animation-delay: -0.45s;
+  animation-delay: -0.45s;
 }
 .lds-ring div:nth-child(2) {
- animation-delay: -0.3s;
+  animation-delay: -0.3s;
 }
 .lds-ring div:nth-child(3) {
- animation-delay: -0.15s;
+  animation-delay: -0.15s;
 }
 @keyframes lds-ring {
- 0% {
-   transform: rotate(0deg);
- }
- 100% {
-   transform: rotate(360deg);
- }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
